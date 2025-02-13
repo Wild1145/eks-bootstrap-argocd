@@ -5,6 +5,15 @@ resources:
 - ../../base
 
 patches:
-- path: target-cluster.yaml
-- path: name.yaml
-- path: version.yaml
+- target:
+    kind: Application
+    name: elastic-operator
+  path: target-cluster.yaml
+- target:
+    kind: Application
+    name: crossplane
+  path: name.yaml
+- target:
+    kind: Application
+    name: crossplane
+  path: version.yaml
