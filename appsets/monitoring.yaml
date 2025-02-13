@@ -14,19 +14,16 @@ spec:
       - path: apps/*/envs/monitoring 
   template:      
     metadata:
-      name: '{{index .path.segments 1}}-{{index .path.segments 3}}' 
+      name: '{{index .path.segments 1}}-{{index .path.segments 3}}-base' 
     spec:
       project: default
-
       source:
         repoURL: https://github.com/lollones/eks-bootstrap-argocd.git
         targetRevision: HEAD
         path: '{{.path.path}}'
-      
       destination:
         name: in-cluster
-        namespace: '{{index .path.segments 1}}-{{index .path.segments 3}}'
-
+        namespace: '{{index .path.segments 1}}-{{index .path.segments 3}}-base'
       syncPolicy:
         syncOptions:
           - CreateNamespace=true  
