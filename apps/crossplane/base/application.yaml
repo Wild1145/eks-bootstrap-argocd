@@ -16,7 +16,7 @@ spec:
         replicas: 2
         serviceAccount:
           customAnnotations:
-            eks.amazonaws.com/role-arn: arn:aws:iam::933066587362:role/argo-cd-data-plane-lorenzo-data-plane
+            eks.amazonaws.com/role-arn: arn:aws:iam::933066587362:role/argo-cd-control-plane-lorenzo-control-plane
   destination:
     name: replaceme
     namespace: crossplane-system
