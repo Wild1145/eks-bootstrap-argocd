@@ -24,7 +24,7 @@ spec:
         path: '{{.path.path}}'
       
       destination:
-        name: lorenzo-data-plane
+        name: in-cluster
         namespace: '{{index .path.segments 1}}-{{index .path.segments 3}}'
 
       syncPolicy:

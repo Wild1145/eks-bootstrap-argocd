@@ -5,3 +5,4 @@ metadata:
 spec:
   destination:
     namespace: elastic-system
+    name: lorenzo-data-plane
