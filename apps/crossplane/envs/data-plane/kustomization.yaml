@@ -13,3 +13,7 @@ patches:
     kind: Application
     name: crossplane
   path: version.yaml
+- target:
+    kind: Application
+    name: crossplane
+  path: name.yaml
