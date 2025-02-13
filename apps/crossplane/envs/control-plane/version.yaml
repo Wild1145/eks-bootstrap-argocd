@@ -1,5 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
+metadata:
+  name: crossplane
 spec:
   source:
     targetRevision: 1.18.2
