@@ -10,7 +10,7 @@ spec:
     chart: crossplane
     targetRevision: 1.18.2
     helm:
-      releaseName: "crossplane"
+      releaseName: crossplane
       values: |
         createNamespace: true
         replicas: 2
