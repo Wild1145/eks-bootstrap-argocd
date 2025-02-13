@@ -4,4 +4,4 @@ metadata:
   name: crossplane
 spec:
   destination:
-    name: lorenzo-control-plane
+    name: in-cluster
