@@ -18,5 +18,5 @@ spec:
       selfHeal: true
       allowEmpty: true
     syncOptions:
-      - Validate=false
       - CreateNamespace=true
+      - Validate=false

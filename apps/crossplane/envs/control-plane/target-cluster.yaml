@@ -4,5 +4,4 @@ metadata:
   name: crossplane
 spec:
   destination:
-    namespace: crossplane-system
     name: lorenzo-control-plane

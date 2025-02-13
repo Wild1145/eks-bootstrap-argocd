@@ -11,9 +11,9 @@ patches:
   path: target-cluster.yaml
 - target:
     kind: Application
-    name: crossplane
+    name: elastic-operator
   path: name.yaml
 - target:
     kind: Application
-    name: crossplane
+    name: elastic-operator
   path: version.yaml

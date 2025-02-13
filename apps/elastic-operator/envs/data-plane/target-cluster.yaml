@@ -4,5 +4,4 @@ metadata:
   name: elastic-operator
 spec:
   destination:
-    namespace: elastic-system
     name: lorenzo-data-plane
