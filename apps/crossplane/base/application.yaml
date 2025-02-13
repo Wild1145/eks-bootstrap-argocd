@@ -15,7 +15,7 @@ spec:
         createNamespace: true
         replicas: 2
   destination:
-    server: replaceme
+    name: replaceme
     namespace: crossplane-system
   syncPolicy:
     automated:
