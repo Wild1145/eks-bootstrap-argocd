@@ -5,4 +5,4 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "5"
 spec:
-  package: xpkg.upbound.io/crossplane-contrib/provider-kubernetes:v0.16.3
+  package: xpkg.upbound.io/crossplane-contrib/provider-kubernetes:v0.15.1
