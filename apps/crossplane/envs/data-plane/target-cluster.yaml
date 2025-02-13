@@ -4,4 +4,4 @@ metadata:
   name: crossplane
 spec:
   destination:
-    name: data-plane
+    name: lorenzo-data-plane

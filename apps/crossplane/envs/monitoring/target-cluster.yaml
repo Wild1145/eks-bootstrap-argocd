@@ -4,4 +4,4 @@ metadata:
   name: crossplane
 spec:
   destination:
-    name: monitoring
+    name: lorenzo-monitoring
