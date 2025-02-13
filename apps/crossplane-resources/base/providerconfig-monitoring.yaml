@@ -1,0 +1,7 @@
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: monitoring
+spec:
+  credentials:
+    source: InjectedIdentity  # Uses IRSA

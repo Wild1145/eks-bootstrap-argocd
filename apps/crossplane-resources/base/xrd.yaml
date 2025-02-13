@@ -1,0 +1,51 @@
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: compositeelasticstacks
+spec:
+  group: eck.crossplane.io
+  names:
+    kind: CompositeElasticStack
+    plural: compositeelasticstacks
+  claimNames:
+    kind: ElasticStack
+    plural: elasticstacks
+  versions:
+    - name: v1alpha1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                aws:
+                  type: object
+                  properties:
+                    region:
+                      type: string
+                version:
+                  type: string
+                elasticsearch:
+                  type: object
+                  properties:
+                    nodeCount:
+                      type: integer
+                kibana:
+                  type: object
+                  properties:
+                    nodeCount:
+                      type: integer
+                namespace:
+                  type: string
+                cluster:
+                  type: string
+              required:
+                - aws
+                - version
+                - elasticsearch
+                - kibana
+                - cluster

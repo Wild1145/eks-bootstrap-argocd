@@ -1,0 +1,7 @@
+apiVersion: kubernetes.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: data-plane
+spec:
+  credentials:
+    source: InjectedIdentity  # Uses IRSA

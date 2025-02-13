@@ -1,0 +1,73 @@
+# apiVersion: apiextensions.crossplane.io/v1
+# kind: Composition
+# metadata:
+#   name: elasticstack.eck.crossplane.io
+# spec:
+#   compositeTypeRef:
+#     apiVersion: eck.crossplane.io/v1alpha1
+#     kind: CompositeElasticStack
+#   resources:
+#     - name: s3-bucket
+#       base:
+#         apiVersion: s3.aws.crossplane.io/v1beta1
+#         kind: Bucket
+#         metadata:
+#           name: elasticsearch-snapshots
+#         spec:
+#           forProvider:
+#             region: us-east-1
+#       patches:
+#         - fromFieldPath: spec.namespace
+#           toFieldPath: metadata.namespace
+#         - fromFieldPath: spec.aws.region
+#           toFieldPath: spec.forProvider.region
+
+#     - name: argocd-app-elasticsearch
+#       base:
+#         apiVersion: argoproj.io/v1alpha1
+#         kind: Application
+#         metadata:
+#           name: elasticsearch
+#         spec:
+#           destination:
+#             namespace: elastic
+#             server: ""
+#           project: default
+#           source:
+#             repoURL: https://github.com/my-org/my-gitops-repo.git
+#             path: argocd/elasticsearch
+#             targetRevision: main
+#           syncPolicy:
+#             automated:
+#               prune: true
+#               selfHeal: true
+#       patches:
+#         - fromFieldPath: spec.cluster
+#           toFieldPath: spec.destination.server
+#         - fromFieldPath: spec.namespace
+#           toFieldPath: spec.destination.namespace
+
+#     - name: argocd-app-kibana
+#       base:
+#         apiVersion: argoproj.io/v1alpha1
+#         kind: Application
+#         metadata:
+#           name: kibana
+#         spec:
+#           destination:
+#             namespace: monitoring
+#             server: ""
+#           project: default
+#           source:
+#             repoURL: https://github.com/my-org/my-gitops-repo.git
+#             path: argocd/kibana
+#             targetRevision: main
+#           syncPolicy:
+#             automated:
+#               prune: true
+#               selfHeal: true
+#       patches:
+#         - fromFieldPath: spec.cluster
+#           toFieldPath: spec.destination.server
+#         - fromFieldPath: spec.namespace
+#           toFieldPath: spec.destination.namespace
