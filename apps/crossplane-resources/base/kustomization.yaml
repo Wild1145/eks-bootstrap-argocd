@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
 # - composition.yaml
 - xrd.yaml
-- s3-provider.yaml
+- provider-s3.yaml
+- provider-kubernetes.yaml
 - providerconfig-data-plane.yaml
 - providerconfig-monitoring.yaml
