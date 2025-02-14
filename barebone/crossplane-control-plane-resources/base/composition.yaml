@@ -70,3 +70,59 @@ spec:
         - type: FromCompositeFieldPath
           fromFieldPath: spec.targetCluster.name
           toFieldPath: spec.providerConfigRef.name
+    - name: kibana
+      base:
+        apiVersion: kubernetes.crossplane.io/v1alpha2
+        kind: Object
+        metadata:
+          name: replaceme
+          namespace: default
+        spec:
+          forProvider:
+            manifest:
+              apiVersion: kibana.k8s.elastic.co/v1
+              kind: Kibana
+              metadata:
+                name: kibana
+                namespace: elastic-system
+              spec:
+                version: "8.0.0"
+                count: 1
+                elasticsearchRef:
+                  name: replaceme
+          providerConfigRef:
+            name: my-k8s-provider-config
+      patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: metadata.name
+          toFieldPath: spec.forProvider.manifest.metadata.name
+          transforms:
+            - type: string
+              string:
+                fmt: "%s-kibana"
+        - type: FromCompositeFieldPath
+          fromFieldPath: metadata.name
+          toFieldPath: spec.forProvider.manifest.spec.elasticsearchRef.name
+          transforms:
+            - type: string
+              string:
+                fmt: "%s-elasticsearch"
+        - type: FromCompositeFieldPath
+          fromFieldPath: metadata.name
+          toFieldPath: metadata.name
+          transforms:
+            - type: string
+              string:
+                fmt: "%s-kibana"
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.targetCluster.namespace
+          toFieldPath: spec.forProvider.manifest.metadata.namespace
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.version
+          toFieldPath: spec.forProvider.manifest.spec.version
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.kibana.nodeCount
+          toFieldPath: spec.forProvider.manifest.spec.count
+        - type: FromCompositeFieldPath
+          fromFieldPath: spec.targetCluster.name
+          toFieldPath: spec.providerConfigRef.name
