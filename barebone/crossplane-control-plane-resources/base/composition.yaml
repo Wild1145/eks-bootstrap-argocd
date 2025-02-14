@@ -2,6 +2,8 @@ apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
   name: elastic-stack-composition
+  labels:
+    app: elastic-stack
   annotations:
     crossplane.io/external-name: "ElasticStackComposition"
 spec:
@@ -11,26 +13,42 @@ spec:
   resources:
     - name: elasticsearch
       base:
-        apiVersion: elasticsearch.k8s.elastic.co/v1
-        kind: Elasticsearch
+        apiVersion: kubernetes.crossplane.io/v1alpha2
+        kind: Object
         metadata:
-          name: elasticsearch
+          name: replaceme
+          namespace: default
         spec:
-          version: "8.0.0"
-          nodeSets:
-            - name: default
-              count: 1
-              config:
-                node.master: true
-                node.data: true
-                node.ingest: true
-                node.store.allow_mmap: false
-              podTemplate:
-                spec:
-                  volumes:
-                  - name: elasticsearch-data
-                    emptyDir: {}
+          forProvider:
+            manifest:
+              apiVersion: elasticsearch.k8s.elastic.co/v1
+              kind: Elasticsearch
+              metadata:
+                name: elasticsearch
+                namespace: elastic-system
+              spec:
+                version: "8.0.0"
+                nodeSets:
+                  - name: default
+                    count: 1
+                    config:
+                      node.master: true
+                      node.data: true
+                      node.ingest: true
+                      node.store.allow_mmap: false
+                    podTemplate:
+                      spec:
+                        volumes:
+                        - name: elasticsearch-data
+                          emptyDir: {}
       patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: metadata.name
+          toFieldPath: spec.forProvider.metadata.name
+          transforms:
+            - type: string
+              string:
+                fmt: "%s-elasticsearch"
         - type: FromCompositeFieldPath
           fromFieldPath: metadata.name
           toFieldPath: metadata.name
@@ -40,52 +58,52 @@ spec:
                 fmt: "%s-elasticsearch"
         - type: FromCompositeFieldPath
           fromFieldPath: spec.targetCluster.namespace
-          toFieldPath: metadata.namespace
+          toFieldPath: spec.forProvider.metadata.namespace
         - type: FromCompositeFieldPath
           fromFieldPath: spec.version
-          toFieldPath: spec.version
+          toFieldPath: spec.forProvider.spec.version
         - type: FromCompositeFieldPath
           fromFieldPath: spec.elasticsearch.nodeCount
-          toFieldPath: spec.nodeSets[0].count
+          toFieldPath: spec.forProvider.spec.nodeSets[0].count
         - type: FromCompositeFieldPath
           fromFieldPath: spec.targetCluster.name
-          toFieldPath: metadata.annotations[crossplane.io/provider-config]
+          toFieldPath: spec.providerConfigRef.name
 
-    - name: kibana
-      base:
-        apiVersion: kibana.k8s.elastic.co/v1
-        kind: Kibana
-        metadata:
-          name: kibana
-        spec:
-          version: "8.0.0"
-          count: 1
-          elasticsearchRef:
-            name: elasticsearch
-      patches:
-        - type: FromCompositeFieldPath
-          fromFieldPath: metadata.name
-          toFieldPath: metadata.name
-          transforms:
-            - type: string
-              string:
-                fmt: "%s-kibana"
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.targetCluster.namespace
-          toFieldPath: metadata.namespace
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.version
-          toFieldPath: spec.version
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.kibana.nodeCount
-          toFieldPath: spec.count
-        - type: FromCompositeFieldPath
-          fromFieldPath: metadata.name
-          toFieldPath: spec.elasticsearchRef.name
-          transforms:
-            - type: string
-              string:
-                fmt: "%s-elasticsearch"
-        - type: FromCompositeFieldPath
-          fromFieldPath: spec.targetCluster.name
-          toFieldPath: metadata.annotations[crossplane.io/provider-config]
+    # - name: kibana
+    #   base:
+    #     apiVersion: kibana.k8s.elastic.co/v1
+    #     kind: Kibana
+    #     metadata:
+    #       name: kibana
+    #     spec:
+    #       version: "8.0.0"
+    #       count: 1
+    #       elasticsearchRef:
+    #         name: elasticsearch
+    #   patches:
+    #     - type: FromCompositeFieldPath
+    #       fromFieldPath: metadata.name
+    #       toFieldPath: metadata.name
+    #       transforms:
+    #         - type: string
+    #           string:
+    #             fmt: "%s-kibana"
+    #     - type: FromCompositeFieldPath
+    #       fromFieldPath: spec.targetCluster.namespace
+    #       toFieldPath: metadata.namespace
+    #     - type: FromCompositeFieldPath
+    #       fromFieldPath: spec.version
+    #       toFieldPath: spec.version
+    #     - type: FromCompositeFieldPath
+    #       fromFieldPath: spec.kibana.nodeCount
+    #       toFieldPath: spec.count
+    #     - type: FromCompositeFieldPath
+    #       fromFieldPath: metadata.name
+    #       toFieldPath: spec.elasticsearchRef.name
+    #       transforms:
+    #         - type: string
+    #           string:
+    #             fmt: "%s-elasticsearch"
+    #     - type: FromCompositeFieldPath
+    #       fromFieldPath: spec.targetCluster.name
+    #       toFieldPath: metadata.annotations[crossplane.io/provider-config]
