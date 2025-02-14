@@ -6,4 +6,8 @@ metadata:
     argocd.argoproj.io/sync-wave: "10"
 spec:
   credentials:
-    source: InjectedIdentity  # Uses IRSA
+    source: Secret
+    secretRef:
+      namespace: default
+      name: monitoring-kubeconfig
+      key: kubeconfig
