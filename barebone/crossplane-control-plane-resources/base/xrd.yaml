@@ -43,8 +43,7 @@ spec:
                     name:
                       type: string
               required:
-                - aws
                 - version
                 - elasticsearch
                 - kibana
-                - cluster
+                - targetCluster
