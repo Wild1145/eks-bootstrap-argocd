@@ -1,0 +1,15 @@
+# This is a demo file to create a fully working Elasticsearch+Kibana cluster in the data-plane cluster
+# Feel free to create multiple copies with different names and nodeCounts
+apiVersion: eck.crossplane.io/v1alpha1
+kind: ElasticStack
+metadata:
+  name: test
+spec:
+  targetCluster:
+    namespace: elastic-system
+    name: data-plane
+  version: "8.17.2"
+  elasticsearch:
+    nodeCount: 1
+  kibana:
+    nodeCount: 1
