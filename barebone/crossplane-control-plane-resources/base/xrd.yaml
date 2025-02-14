@@ -1,14 +1,14 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
-  name: compositeelasticstacks.eck.crossplane.io
+  name: xelasticstacks.eck.crossplane.io
   annotations:
     argocd.argoproj.io/sync-wave: "5"
 spec:
   group: eck.crossplane.io
   names:
-    kind: CompositeElasticStack
-    plural: compositeelasticstacks
+    kind: XElasticStack
+    plural: xelasticstacks
   claimNames:
     kind: ElasticStack
     plural: elasticstacks
