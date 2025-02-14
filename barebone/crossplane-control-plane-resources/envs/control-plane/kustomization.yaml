@@ -3,3 +3,9 @@ kind: Kustomization
 
 resources:
 - ../../base
+
+patches:
+- target:
+    kind: Provider
+    name: provider-kubernetes
+  path: name.yaml
