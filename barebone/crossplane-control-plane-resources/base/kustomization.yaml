@@ -7,3 +7,4 @@ resources:
 - provider-kubernetes.yaml
 - providerconfig-data-plane.yaml
 - providerconfig-monitoring.yaml
+- composition.yaml
