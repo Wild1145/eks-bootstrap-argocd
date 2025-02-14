@@ -35,10 +35,13 @@ spec:
                   properties:
                     nodeCount:
                       type: integer
-                namespace:
-                  type: string
-                cluster:
-                  type: string
+                targetCluster:
+                  type: object
+                  properties:
+                    namespace:
+                      type: string
+                    name:
+                      type: string
               required:
                 - aws
                 - version
