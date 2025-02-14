@@ -1,0 +1,48 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: elastic-stack-composition
+  annotations:
+    crossplane.io/external-name: "ElasticStackComposition"
+spec:
+  compositeTypeRef:
+    apiVersion: eck.crossplane.io/v1alpha1
+    kind: CompositeElasticStack
+  resources:
+    - name: elasticsearch
+      base:
+        apiVersion: elasticsearch.k8s.elastic.co/v1
+        kind: Elasticsearch
+        metadata:
+          name: {{ .metadata.name }}-elasticsearch
+          namespace: {{ .spec.namespace }}
+        spec:
+          version: "{{ .spec.version }}"
+          nodeSets:
+            - name: default
+              count: "{{ .spec.elasticsearch.nodeCount }}"
+              config:
+                node.master: true
+                node.data: true
+                node.ingest: true
+                node.store.allow_mmap: false
+      patches:
+        - type: FromCompositeFieldPath
+          fieldPath: "spec.namespace"
+          target:
+            fieldPath: "metadata.namespace"
+    
+    - name: kibana
+      base:
+        apiVersion: kibana.k8s.elastic.co/v1
+        kind: Kibana
+        metadata:
+          name: {{ .metadata.name }}-kibana
+        spec:
+          version: "{{ .spec.version }}"
+          count: "{{ .spec.kibana.nodeCount }}"
+          elasticsearchRef:
+            name: {{ .metadata.name }}-elasticsearch
+  
+  providerConfigRef:
+    name: "{{ .spec.cluster }}"
