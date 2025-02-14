@@ -8,6 +8,10 @@ patches:
 - target:
     kind: Application
     name: elastic-operator
+  path: target-cluster.yaml
+- target:
+    kind: Application
+    name: elastic-operator
   path: name.yaml
 - target:
     kind: Application
