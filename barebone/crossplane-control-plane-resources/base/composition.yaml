@@ -38,9 +38,15 @@ spec:
                       node.store.allow_mmap: false
                     podTemplate:
                       spec:
-                        volumes:
-                        - name: elasticsearch-data
-                          emptyDir: {}
+                        containers:
+                          - name: elasticsearch
+                            resources:
+                              requests:
+                                cpu: "500m"
+                                memory: "1Gi"
+                              limits:
+                                cpu: "1"
+                                memory: "2Gi"
           providerConfigRef:
             name: my-k8s-provider-config
       patches:
