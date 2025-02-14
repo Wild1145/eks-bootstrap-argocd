@@ -6,9 +6,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: oci://public.ecr.aws/karpenter
-    chart: karpenter
+    repoURL: public.ecr.aws
+    chart: karpenter/karpenter
     targetRevision: 1.0.4
+    helm:
+      releaseName: karpenter
+      version: v3
   destination:
     name: replaceme
     namespace: kube-system
