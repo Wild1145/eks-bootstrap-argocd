@@ -58,13 +58,13 @@ spec:
                 fmt: "%s-elasticsearch"
         - type: FromCompositeFieldPath
           fromFieldPath: spec.targetCluster.namespace
-          toFieldPath: spec.forProvider.metadata.namespace
+          toFieldPath: spec.forProvider.manifest.metadata.namespace
         - type: FromCompositeFieldPath
           fromFieldPath: spec.version
-          toFieldPath: spec.forProvider.spec.version
+          toFieldPath: spec.forProvider.manifest.spec.version
         - type: FromCompositeFieldPath
           fromFieldPath: spec.elasticsearch.nodeCount
-          toFieldPath: spec.forProvider.spec.nodeSets[0].count
+          toFieldPath: spec.forProvider.manifest.spec.nodeSets[0].count
         - type: FromCompositeFieldPath
           fromFieldPath: spec.targetCluster.name
           toFieldPath: spec.providerConfigRef.name
