@@ -46,7 +46,7 @@ spec:
       patches:
         - type: FromCompositeFieldPath
           fromFieldPath: metadata.name
-          toFieldPath: spec.forProvider.metadata.name
+          toFieldPath: spec.forProvider.manifest.metadata.name
           transforms:
             - type: string
               string:
