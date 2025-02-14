@@ -46,7 +46,7 @@ spec:
                                 memory: "1Gi"
                               limits:
                                 cpu: "1"
-                                memory: "2Gi"
+                                memory: "1Gi"
           providerConfigRef:
             name: my-k8s-provider-config
       patches:
