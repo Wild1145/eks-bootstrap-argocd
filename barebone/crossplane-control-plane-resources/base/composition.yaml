@@ -31,6 +31,16 @@ spec:
                 nodeSets:
                   - name: default
                     count: 1
+                    volumeClaimTemplates:
+                    - metadata:
+                        name: elasticsearch-data
+                      spec:
+                        accessModes:
+                        - ReadWriteOnce
+                        resources:
+                          requests:
+                            storage: 5Gi
+                        storageClassName: gp2 ## TODO move to gp3
                     config:
                       node.master: true
                       node.data: true
