@@ -8,7 +8,7 @@ spec:
   writeConnectionSecretsToNamespace: crossplane-system
   compositeTypeRef:
     apiVersion: eck.crossplane.io/v1alpha1
-    kind: CompositeElasticStack
+    kind: XElasticStack
   resources:
     - name: elasticsearch
       base:
