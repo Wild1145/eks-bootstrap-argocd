@@ -4,4 +4,4 @@ metadata:
   name: elastic-operator
 spec:
   destination:
-    name: lorenzo-data-plane
+    name: 17feb-sandbox3-EDC_DP-EKS

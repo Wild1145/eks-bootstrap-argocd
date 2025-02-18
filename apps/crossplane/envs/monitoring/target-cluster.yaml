@@ -4,4 +4,4 @@ metadata:
   name: crossplane
 spec:
   destination:
-    name: lorenzo-monitoring
+    name: 17feb-sandbox3-EDC_MP-EKS
