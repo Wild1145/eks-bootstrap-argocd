@@ -22,7 +22,7 @@ spec:
         targetRevision: HEAD
         path: '{{.path.path}}'
       destination:
-        name: lorenzo-data-plane
+        name: 17feb-sandbox3-EDC_DP-EKS
         namespace: '{{index .path.segments 1}}-{{index .path.segments 3}}-base'
       syncPolicy:
         syncOptions:
