@@ -8,7 +8,7 @@ spec:
   goTemplateOptions: ["missingkey=error"]
   generators:
   - git:
-      repoURL: https://github.com/lollones/eks-bootstrap-argocd.git
+      repoURL: https://github.com/Wild1145/eks-bootstrap-argocd.git
       revision: HEAD
       directories:
       - path: barebone/*/envs/data-plane 
@@ -18,7 +18,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/lollones/eks-bootstrap-argocd.git
+        repoURL: https://github.com/Wild1145/eks-bootstrap-argocd.git
         targetRevision: HEAD
         path: '{{.path.path}}'
       destination:
